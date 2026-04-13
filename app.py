@@ -102,16 +102,16 @@ def assets_ready():
 
 def build_feature_row(inputs: dict, feat_names: list) -> np.ndarray:
     """Convert sidebar input dict to a (1, n_features) array."""
-    rr = inputs["reflux_ratio"]
-    z = inputs["z_feed"]
-    N  = inputs["N_stages"]
-    NF = inputs["N_feed"]
+    rr = inputs["Reflux_ratio"]
+    z = inputs["z_Feed"]
+    N  = inputs["N_Stages"]
+    NF = inputs["N_Feed"]
     full = {
-        "T_feed_C":  inputs["T_feed_C"],
-        "P_feed_atm": inputs["P_feed_atm"],
+        "T_feed_C":  inputs["T_Feed_C"],
+        "P_feed_atm": inputs["P_Feed_atm"],
         "z_feed":  z,
         "N_stages": float(N),
-        "N_feed": float(NF),
+        "N_Feed": float(NF),
         "reflux_ratio": rr,
         "B_fraction": inputs["B_fraction"],
         "q_feed": inputs["q_feed"],
@@ -126,13 +126,13 @@ def build_feature_row(inputs: dict, feat_names: list) -> np.ndarray:
 def sidebar_inputs():
     st.sidebar.header("Operating conditions")
     inp = {}
-    inp["T_feed_C"]  = st.sidebar.slider("Feed temperature [°C]", 60.0, 120.0, 80.0, 0.5)
-    inp["P_feed_atm"] = st.sidebar.slider("Feed pressure [atm]", 1.0, 3.0,  1.5,  0.05)
-    inp["z_feed"] = st.sidebar.slider("Feed composition (benzene)",0.20,  0.80,  0.50, 0.01)
-    inp["N_stages"] = st.sidebar.slider("Number of stages", 10, 35, 20)
-    max_nf  = max(5, inp["N_stages"] - 4)
-    inp["N_feed"] = st.sidebar.slider("Feed stage location", 4, max_nf, min(10, inp["N_Stages"]//2))
-    inp["reflux_ratio"] = st.sidebar.slider("Reflux ratio", 1.5, 6.0, 2.5,  0.1)
+    inp["T_Feed_C"]  = st.sidebar.slider("Feed temperature [°C]", 60.0, 120.0, 80.0, 0.5)
+    inp["P_Feed_atm"] = st.sidebar.slider("Feed pressure [atm]", 1.0, 3.0,  1.5,  0.05)
+    inp["z_Feed"] = st.sidebar.slider("Feed composition (benzene)",0.20,  0.80,  0.50, 0.01)
+    inp["N_Stages"] = st.sidebar.slider("Number of stages", 10, 35, 20)
+    max_nf  = max(5, inp["N_Stages"] - 4)
+    inp["N_Feed"] = st.sidebar.slider("Feed stage location", 4, max_nf, min(10, inp["N_Stages"]//2))
+    inp["Reflux_ratio"] = st.sidebar.slider("Reflux ratio", 1.5, 6.0, 2.5,  0.1)
     inp["B_fraction"] = st.sidebar.slider("Bottoms fraction [-]", 0.20,  0.80,  0.50, 0.01)
     inp["q_feed"] = st.sidebar.slider("Feed quality q [-]", 0.0, 1.5, 1.0, 0.05)
  
