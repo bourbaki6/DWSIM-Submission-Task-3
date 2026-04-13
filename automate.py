@@ -48,7 +48,7 @@ def run_dwsim_real(samples: pd.DataFrame) -> pd.DataFrame:
 
             col = sim.GetFlowsheetSimulationObject("DISTCOL")
             col.SetNumberOfStages(int(row["N_stages"]))
-            col.SetFeedStage(int(row["N_feed"]))
+            col.SetFeedStage(int(row["N_Feed"]))
             col.SetRefluxRatio(row["Reflux_ratio"])
 
             bot_spec = sim.GetFlowsheetSimulationObject("BOTSPEC")
@@ -62,7 +62,7 @@ def run_dwsim_real(samples: pd.DataFrame) -> pd.DataFrame:
             reb   = sim.GetFlowsheetSimulationObject("REBOILER")
 
             xD = dist.GetOverallComposition()[0]
-            xB = bots.getOverallComposition()[0]
+            xB = bots.GetOverallComposition()[0]
             QC = cond.GetDutykW()
             QR = reb.GetDutykW()
 
@@ -88,7 +88,7 @@ def _alpha_benzene_toluene(T_C: float, P_atm: float) -> float:
 
 def _fenske_nmin(xD: float, xB: float, alpha: float) -> float:
 
-    return np.log((xD / (1 - xD)) * ((1 - xD) / xB)) / np.log(alpha)
+    return np.log((xD / (1 - xD)) * ((1 - xB) / xB)) / np.log(alpha)
 
 def _underwood_rmin(z: float, q: float, alpha: float, xD: float) -> float:
 
@@ -117,7 +117,7 @@ def _feed_quality(T_C: float, P_atm: float, z: float) -> float:
     Cp_kJ = 0.15
     q = 1 + Cp_kJ * (T_b_K - T_K) / lambda_kJ
 
-    return float(np.clip(q, 0.0, 0.15))
+    return float(np.clip(q, 0.0, 1.5))
 
 def simulate_column_physics(row: pd.Series) -> dict:
 
@@ -152,7 +152,7 @@ def simulate_column_physics(row: pd.Series) -> dict:
     Y = gilliland_Y(X)
 
     N_eff = (Y * (N + 1) + Nmin) / (1.0) 
-    separation_factor = int(0.99, N_eff / (N_eff + Nmin + 1e-6))
+    separation_factor = min(0.99, N_eff / (N_eff + Nmin + 1e-6))
 
     NF_optimal = int(round(N * (Rmin / (Rmin + 1))))
     NF_optimal = max(4, min(NF_optimal, N - 4))
