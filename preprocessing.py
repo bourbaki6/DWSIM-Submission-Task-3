@@ -168,7 +168,7 @@ def split_and_scale(df: pd.DataFrame):
     X = df[feature_cols].values.astype(float)
     y = df[target_cols].values.astype(float)
 
-    z_quartile = pd.qcut(df["z_Feed"], q = 4, labels = False)
+    z_quartile = pd.qcut(df["z_Feed"], q = 4, labels = False, duplicates = "drop")
     X_tr, X_tmp, y_tr, y_tmp, z_tr, z_tmp = train_test_split(
         X, y, z_quartile, test_size = 0.30, random_state = SEED, stratify = z_quartile
     )
