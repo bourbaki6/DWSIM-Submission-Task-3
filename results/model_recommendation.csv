@@ -1,0 +1,5 @@
+model,mean_R2
+Polynomial,0.99909925
+XGBoost,0.9809822500000001
+Random Forest,0.97867075
+ANN,0.96890475

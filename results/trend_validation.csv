@@ -1,0 +1,9 @@
+variable,target,expected,result
+Reflux_ratio,xD,up,OK
+Reflux_ratio,xB,down,OK
+Reflux_ratio,QC_kW,down,FAIL
+Reflux_ratio,QR_kW,up,FAIL
+N_Stages,xD,up,OK
+N_Stages,xB,down,FAIL
+z_Feed,xD,up,OK
+z_Feed,xB,up,OK
