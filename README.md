@@ -7,7 +7,6 @@ python run_pipeline.py
 python run_pipeline.py --from preprocessing
 
 ### Re-run only the evaluation plots after tweaking evaluate.py
-python run_pipeline.py --only evaluation
+python run_pipeline.py --only evaluate
 
-### Run everything except the slow simulation step
-python run_pipeline.py --skip simulation
+
